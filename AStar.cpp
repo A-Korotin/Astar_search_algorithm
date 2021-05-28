@@ -74,11 +74,9 @@ public:
 	{
 		if (!this->immutable)
 		{
-
 			this->color[0] = 200;
 			this->color[1] = 191;
 			this->color[2] = 191;
-
 			this->avalible = false;
 		}
 	}
@@ -86,13 +84,11 @@ public:
 	void deselect()
 	{
 		if (!this->immutable)
-		{
-		
-		this->color[0] = 22;
-		this->color[1] = 22;
-		this->color[2] = 22;
-
-		this->avalible = true;
+		{		
+			this->color[0] = 22;
+			this->color[1] = 22;
+			this->color[2] = 22;
+			this->avalible = true;
 		}
 	}
 
@@ -168,13 +164,11 @@ public:
 		for (int r = 0; r < nROWS; r++)
 		{
 			vector <Cell> row;
-
+			
 			for (int c = 0; c < nCOLS; c++)
 				row.push_back(Cell(r, c));
-
 			container.push_back(row);
 		}
-
 		container[START_Y][START_X].StartStop();
 		container[END_Y][END_X].StartStop();
 	}
@@ -207,7 +201,6 @@ public:
 			*pos_x = 0;
 			*pos_y += CELL_H + SEP;
 		}
-
 		delete pos_x;
 		delete pos_y;
 	}
@@ -216,11 +209,8 @@ public:
 	{
 		while (!event_manager(win, evnt))
 		{
-			SDL_Delay(13);
 			this->draw(renderer);
-
 			SDL_RenderPresent(renderer);
-
 			click_manager(*this);
 		}
 	}
@@ -519,7 +509,6 @@ void click_manager(Grid& gr)
 		gr.container[*y_coord / (CELL_H + SEP)][*x_coord / (CELL_W + SEP)].select();
 	else if (SDL_GetMouseState(x_coord, y_coord) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 		gr.container[*y_coord / (CELL_H + SEP)][*x_coord / (CELL_W + SEP)].deselect();
-
 
 	delete x_coord;
 	delete y_coord;
