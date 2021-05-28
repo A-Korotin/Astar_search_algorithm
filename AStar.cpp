@@ -70,11 +70,6 @@ public:
 		return this->immutable;
 	}
 
-	char shout()
-	{
-		return '*';
-	}
-
 	void select()
 	{
 		if (!this->immutable)
@@ -184,18 +179,6 @@ public:
 		container[END_Y][END_X].StartStop();
 	}
 
-	void repr()
-	{
-		for (int i = 0; i < nROWS; i++)
-		{
-			for (int j = 0; j < nCOLS; j++)
-			{
-				cout << container[i][j].shout() << " ";
-			}
-			cout << endl;
-		}
-	}
-
 	void draw(SDL_Renderer* renderer)
 	{
 		int* pos_x = new int;
@@ -273,6 +256,7 @@ public:
 			}
 		}
 	}
+	
 	vector< vector<int> > get_unvisited()
 	{
 		vector< vector<int> > locs;
@@ -355,11 +339,10 @@ public:
 private:
 
 	vector< vector <Cell> > container;
+	
 
 	friend void click_manager(Grid& gr);
-
 	friend int astar(Grid& gr, SDL_Renderer* renderer, bool verbose);
-
 	friend Node;
 	friend vector<vector<int>> unvisited_neibours(Grid& gr, vector<int>& loc);
 	
@@ -454,25 +437,11 @@ bool goal_test(vector<int>& state)
 	return state[0] == END_Y && state[1] == END_X;
 }
 
-bool operator <(const Node& a, const Node& b)
-{
-	return (a.cost + a.heruistic) < (b.cost + b.heruistic);
-}
-
 bool operator >(const Node& a, const Node& b)
 {
 	return (a.cost +a.heruistic) > (b.cost + b.heruistic);
 }
 
-bool operator >=(const Node& a, const Node& b)
-{
-	return (a.cost + a.heruistic) >= (b.cost + b.heruistic);
-}
-
-bool operator <=(const Node& a, const Node& b)
-{
-	return (a.cost + a.heruistic) <= (b.cost + b.heruistic);
-}
 
 void set_path(Grid& gr, map<vector<int>, vector<int>>& ancestors, SDL_Renderer* renderer, vector<int>& start_loc)
 {
@@ -578,7 +547,6 @@ bool event_manager(SDL_Window* window, SDL_Event& evnt)
 
 int main(int argc, char* argv[])
 {
-
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		cout << "Init Failed: " << SDL_GetError() << endl;
 
